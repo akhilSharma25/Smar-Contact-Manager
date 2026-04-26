@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title,script)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-th-replace="${title}">SCM</title>
+
+    <style>
+        /* General Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f3f4f6; color: #333; transition: 0.3s; }
+
+        /* Navbar Styling */
+        .navbar { display: flex; justify-content: space-between; padding: 15px 30px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: bold; }
+
+        /* Content Area */
+        .main-content { min-height: 80vh; padding: 20px; }
+
+        /* Footer */
+        footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: auto; }
+
+        /* Dark Mode Support (Basic) */
+        body.dark-mode { background-color: #1a202c; color: white; }
+        body.dark-mode .navbar { background: #2d3748; color: white; }
+        body.dark-mode .navbar a { color: white; }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
+</head>
+
+<body>
+
+<div th:if="${loggedInUser}">
+    <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+</div>
+<div th:unless="${loggedInUser}">
+    <div data-th-replace="~{navbar :: navbar}"></div>
+</div>
+
+<div class="main-content">
+    <section data-th-replace="${content}"></section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script data-th-src="@{'/js/script.js'}"></script>
+<th:block data-th-replace="${script}"></th:block>
+</body>
+</html>

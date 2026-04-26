@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="parent(content, title, script)">
+<head>
+    <title>Home page</title>
+    <style>
+        /* Modern Design System */
+        :root { --primary: #4f46e5; --dark: #1e293b; --light: #f8fafc; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--light); color: #334155; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            text-align: center;
+        }
+        .hero h2 { font-size: 3.5rem; margin-bottom: 20px; }
+
+        /* Buttons */
+        .btn { padding: 14px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.3s; }
+        .btn-white { background: white; color: var(--primary); }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+
+        /* Features Section */
+        .py-20 { padding: 80px 0; }
+        .grid { display: grid; gap: 30px; margin-top: 40px; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+        /* Modern Cards */
+        .card {
+            padding: 40px; background: white; border-radius: 20px;
+            border: 1px solid #e2e8f0; text-align: center;
+            transition: 0.4s;
+        }
+        .card:hover { border-color: var(--primary); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1); }
+        .card h3 { margin-bottom: 15px; color: var(--dark); }
+
+        /* Form Styling */
+        .form-container { background: white; padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+        .input-field { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #e2e8f0; border-radius: 10px; }
+        .input-field:focus { outline: none; border-color: var(--primary); }
+        .btn-blue { background: var(--primary); color: white; width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; }
+
+        /* Footer */
+        footer { background: var(--dark); color: #94a3b8; padding: 40px 0; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="content">
+    <section class="hero">
+        <div class="container">
+            <h2>Manage Contacts Smarter</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Secure, Fast, and Modern Contact Management for everyone.</p>
+            <a href="#" class="btn btn-white">Get Started Now</a>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem;">Why SCM 2.0?</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>Easy Management</h3>
+                    <p>Organize contacts with a single click in a beautifully clean UI.</p>
+                </div>
+                <div class="card">
+                    <h3>Top Security</h3>
+                    <p>Your data stays encrypted and private at all times.</p>
+                </div>
+                <div class="card">
+                    <h3>24/7 Access</h3>
+                    <p>Access your address book from anywhere, any device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container">
+            <div class="form-container">
+                <h2 style="margin-bottom: 20px; text-align: center;">Get in Touch</h2>
+                <form>
+                    <input type="text" placeholder="Your Name" class="input-field">
+                    <input type="email" placeholder="Your Email" class="input-field">
+                    <textarea placeholder="Your Message" class="input-field" rows="4"></textarea>
+                    <button type="submit" class="btn-blue">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SCM 2.0 | Built with Spring Boot</p>
+    </footer>
+</div>
+
+</body>
+</html>

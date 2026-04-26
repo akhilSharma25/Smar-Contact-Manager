@@ -1,0 +1,25 @@
+<nav th:fragment="navbar" class="custom-nav">
+    <a th:href="@{'/'}" class="nav-brand">
+        <img th:src="@{'/images/telephone.png'}" style="height: 32px; margin-right: 10px;" alt="Logo" />
+        <span>SCM2.0</span>
+    </a>
+
+    <div class="btn-group">
+        <button id="theme_change_button" style="padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;">
+            <i class="fa-solid fa-circle-half-stroke"></i> Light
+        </button>
+        <a th:href="@{'/login'}" class="btn-auth">Login</a>
+        <a th:href="@{'/register'}" class="btn-auth">Signup</a>
+
+        <button class="menu-toggle" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <ul class="nav-menu">
+        <li><a th:href="@{'/home'}" class="nav-link">Home</a></li>
+        <li><a th:href="@{'/about'}" class="nav-link">About</a></li>
+        <li><a th:href="@{'/services'}" class="nav-link">Services</a></li>
+        <li><a th:href="@{'/contact'}" class="nav-link">Contact</a></li>
+    </ul>
+</nav>
