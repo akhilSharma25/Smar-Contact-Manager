@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+<head>
+    <title>About Page</title>
+</head>
+<body>
+
+<div id="content">
+    <style>
+        .services-wrapper {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .services-wrapper h1 {
+            color: #1e293b;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .services-wrapper h2 {
+            color: #4f46e5;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .services-wrapper p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+    </style>
+    <h1>Welcome to about page</h1>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
+        ratione!
+    </p>
+</div>
+<script>
+    console.log("about page");
+</script>
+<script>
+    console.log("second about page script");
+</script>
+</body>
+</html>

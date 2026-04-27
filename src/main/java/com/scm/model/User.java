@@ -16,7 +16,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     @Column(nullable = false)
     private String name;

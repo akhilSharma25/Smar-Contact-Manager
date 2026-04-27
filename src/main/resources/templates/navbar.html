@@ -1,25 +1,58 @@
-<nav th:fragment="navbar" class="custom-nav">
-    <a th:href="@{'/'}" class="nav-brand">
-        <img th:src="@{'/images/telephone.png'}" style="height: 32px; margin-right: 10px;" alt="Logo" />
-        <span>SCM2.0</span>
-    </a>
+<nav th:fragment="navbar" class="navbar">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo a {
+            font-size: 1.5rem;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+        /* Login Button Styling */
+        .btn-login {
+            background-color: #4f46e5;
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .btn-login:hover {
+            background-color: #4338ca;
+            color: white !important;
+        }
+    </style>
 
-    <div class="btn-group">
-        <button id="theme_change_button" style="padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;">
-            <i class="fa-solid fa-circle-half-stroke"></i> Light
-        </button>
-        <a th:href="@{'/login'}" class="btn-auth">Login</a>
-        <a th:href="@{'/register'}" class="btn-auth">Signup</a>
-
-        <button class="menu-toggle" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+    <div class="logo">
+        <a href="/">SCM 2.0</a>
     </div>
 
-    <ul class="nav-menu">
-        <li><a th:href="@{'/home'}" class="nav-link">Home</a></li>
-        <li><a th:href="@{'/about'}" class="nav-link">About</a></li>
-        <li><a th:href="@{'/services'}" class="nav-link">Services</a></li>
-        <li><a th:href="@{'/contact'}" class="nav-link">Contact</a></li>
+    <ul class="nav-links">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/signup">Signup</a></li>
+        <li><a href="/login" class="btn-login">Login</a></li>
     </ul>
 </nav>

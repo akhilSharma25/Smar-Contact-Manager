@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
+<head>
+    <title>Login Page</title>
+    <style>
+        /* Form & Page Layout */
+        .login-container { display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 20px; }
+        .login-card {
+            width: 100%; max-width: 400px; padding: 2.5rem; background: #ffffff;
+            border-top: 8px solid #2563eb; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .form-title { font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
+        .form-desc { color: #6b7280; margin-bottom: 2rem; }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; }
+        .input {
+            width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 6px;
+            font-size: 1rem; transition: 0.3s;
+        }
+        .input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .btn-login {
+            width: 100%; padding: 0.8rem; background: #2563eb; color: white;
+            border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .btn-login:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+<div id="content" class="login-container">
+    <style>
+        .login-container { display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 20px; }
+        .login-card { width: 100%; max-width: 400px; padding: 2.5rem; background: #ffffff; border-top: 8px solid #2563eb; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .form-title { font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
+        .form-desc { color: #6b7280; margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; }
+        .input { width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; transition: 0.3s; }
+        .input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .btn-login { width: 100%; padding: 0.8rem; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-login:hover { background: #1d4ed8; }
+    </style>
+
+    <div class="login-card">
+        <h2 class="form-title">Login Here</h2>
+        <p class="form-desc">Welcome back! Please login to your account.</p>
+
+        <form th:action="@{'/do-login'}" method="post">
+            <div class="form-group">
+                <label class="label">Email Address</label>
+                <input type="email" name="email" class="input" placeholder="name@company.com" required />
+            </div>
+            <div class="form-group">
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

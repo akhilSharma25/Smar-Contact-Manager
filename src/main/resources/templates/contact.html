@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <title>Contact Us</title>
+</head>
+<body>
+
+<div id="content">
+    <style>
+        .contact-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .contact-container h1 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .contact-container p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        .icon-box {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #4f46e5;
+        }
+    </style>
+
+    <div class="contact-container">
+        <div class="icon-box">📧</div>
+        <h1>Contact Us</h1>
+        <p>
+            Have questions or need help? We are here for you! <br>
+            Feel free to reach out to us at <strong>support@scm.com</strong>
+        </p>
+    </div>
+</div>
+
+<script th:fragment="script">
+    console.log("Contact page loaded");
+</script>
+
+</body>
+</html>

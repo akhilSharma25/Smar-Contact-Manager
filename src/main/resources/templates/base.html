@@ -45,7 +45,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script data-th-src="@{'/js/script.js'}"></script>
-<th:block data-th-replace="${script}"></th:block>
-</body>
+<!--<script data-th-src="@{'/js/script.js'}"></script>-->
+<th:block data-th-if="${script != null}" data-th-replace="${script}"></th:block></body>
 </html>
