@@ -2,6 +2,8 @@ package com.scm.controller;
 
 import com.scm.forms.UserForm;
 import com.scm.model.User;
+import com.scm.services.impl.UserServiceIml;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PageController {
+    @Autowired
+    private UserServiceIml serviceIml;
 
     @GetMapping("/")
     public String index() {
@@ -63,7 +67,17 @@ public class PageController {
 
         //validate form data
         //save to database
+//        userForm->user
+        User user=new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setPassword(userForm.getPassword());
 
+        User saveUser=serviceIml.saveUser(user);
+
+        System.out.println("User saved");
         return "redirect:/home";
     }
 
