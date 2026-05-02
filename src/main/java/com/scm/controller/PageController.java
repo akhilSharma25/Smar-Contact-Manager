@@ -1,11 +1,16 @@
 package com.scm.controller;
 
 import com.scm.forms.UserForm;
+import com.scm.helper.Message;
+import com.scm.helper.MessageType;
 import com.scm.model.User;
 import com.scm.services.impl.UserServiceIml;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,10 +67,13 @@ public class PageController {
     //processing register
 
     @PostMapping("/do-register")
-    public  String processRegister(@ModelAttribute UserForm userForm){
+    public  String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, HttpSession httpSession){
         System.out.println("Processing Registration");
 
         //validate form data
+        if(bindingResult.hasErrors()){
+            return "register";
+        }
         //save to database
 //        userForm->user
         User user=new User();
@@ -77,8 +85,11 @@ public class PageController {
 
         User saveUser=serviceIml.saveUser(user);
 
+        Message mes=Message.builder().content("Registration Successful").type(MessageType.green).build();
+        httpSession.setAttribute("message",mes);
+
         System.out.println("User saved");
-        return "redirect:/home";
+        return "redirect:/signup";
     }
 
 

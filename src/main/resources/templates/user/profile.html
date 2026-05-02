@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+<head>
+    <title data-th-text="${loggedInUser.name} + ' | Profile'">Profile Page</title>
+</head>
+<body>
+<div id="content">
+    <style>
+        /* Main Layout */
+        .profile-container {
+          display: flex;
+          min-height: 100vh;
+        }
+
+        .profile-content {
+          flex-grow: 1;
+          padding: 100px 20px;
+          display: flex;
+          justify-content: center;
+          background-color: var(--bg-color);
+        }
+
+        /* Profile Card Styling */
+        .profile-card {
+          background: #ffffff;
+          width: 100%;
+          max-width: 500px;
+          padding: 30px;
+          border-radius: 15px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          height: fit-content;
+        }
+
+        body.dark-mode .profile-card {
+          background: #1e293b;
+          color: #f8fafc;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-img {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          object-cover: cover;
+          border: 4px solid #4f46e5;
+          margin-bottom: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-name {
+          font-size: 1.8rem;
+          margin-bottom: 5px;
+          color: var(--text-color);
+        }
+
+        .user-info {
+          color: #64748b;
+          margin-bottom: 10px;
+          font-size: 1rem;
+        }
+
+        .user-about {
+          font-style: italic;
+          margin: 20px 0;
+          padding: 10px;
+          background: #f1f5f9;
+          border-radius: 8px;
+          color: #475569;
+        }
+
+        body.dark-mode .user-about {
+          background: #334155;
+          color: #cbd5e1;
+        }
+
+        .verification-status {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+          border-top: 1px solid #e2e8f0;
+          padding-top: 15px;
+          font-size: 0.85rem;
+        }
+
+        .status-tag {
+          font-weight: bold;
+          color: #4f46e5;
+        }
+    </style>
+
+    <div class="profile-container">
+        <!-- Sidebar -->
+        <div th:if="${loggedInUser}">
+            <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+        </div>
+
+        <!-- Profile Details -->
+        <div class="profile-content">
+            <div class="profile-card">
+                <!-- Profile Photo -->
+                <img
+                        data-th-src="@{${loggedInUser.profilePic}}"
+                        src="/images/default-profile.png"
+                        alt="Profile Photo"
+                        class="profile-img"
+                />
+
+                <!-- Basic Info -->
+                <h2 class="user-name" data-th-text="${loggedInUser.name}">User Name</h2>
+                <p class="user-info" data-th-text="${loggedInUser.email}">email@example.com</p>
+                <p class="user-info" data-th-text="${loggedInUser.phoneNumber}">+91 1234567890</p>
+
+                <!-- About Section -->
+                <div class="user-about">
+                    <p data-th-text="${loggedInUser.about}">About the user...</p>
+                </div>
+
+                <!-- Verification Status -->
+                <div class="verification-status">
+                    <p>Email Verified: <span class="status-tag" data-th-text="${loggedInUser.emailVerified ? 'YES' : 'NO'}">NO</span></p>
+                    <p>Phone Verified: <span class="status-tag" data-th-text="${loggedInUser.phoneVerified ? 'YES' : 'NO'}">NO</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:fragment="script">
+    console.log("Profile page loaded");
+</script>
+</body>
+</html>

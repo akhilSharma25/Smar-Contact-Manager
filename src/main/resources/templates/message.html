@@ -19,7 +19,7 @@
         .alert-icon { width: 20px; height: 20px; margin-right: 10px; }
     </style>
 
-    <div class="my-alert"
+    <div data-th-if="${session.message}" class="my-alert"
          th:classappend="*{type == 'red' ? 'red' : (type == 'blue' ? 'blue' : 'green')}"
          role="alert">
 
