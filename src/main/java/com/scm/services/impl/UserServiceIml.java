@@ -1,9 +1,11 @@
 package com.scm.services.impl;
 
+import com.scm.helper.AppConstants;
 import com.scm.helper.ResourceNotFoundExpection;
 import com.scm.model.User;
 import com.scm.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,8 @@ public class UserServiceIml implements com.scm.services.UserService {
     @Autowired
     private UserRepo repo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -23,6 +27,11 @@ public class UserServiceIml implements com.scm.services.UserService {
         //userid
         String userId= UUID.randomUUID().toString();
         user.setUserId(userId);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
         return repo.save(user);
     }
 
