@@ -32,6 +32,8 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailservice;
 
+    @Autowired
+    private OAuthenticSuccessHandler handler;
 
     //config of authenticaiton provider
     @Bean
@@ -55,8 +57,25 @@ public class SecurityConfig {
         });
 
         //form default login
-        httpSecurity.formLogin(Customizer.withDefaults());
+//        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(form->{
 
+            form.loginPage("/login").loginProcessingUrl("/authenticate")
+                    .defaultSuccessUrl("/user/dashboard",true).failureUrl("/login?error=true")
+                    .usernameParameter("email").passwordParameter("password");
+        });
+
+        httpSecurity.csrf(a->a.disable());
+        httpSecurity.logout(logout->{
+            logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout=true");
+        });
+
+
+        //oauth
+        httpSecurity.oauth2Login(oauth->
+        {
+            oauth.loginPage("/login").successHandler(handler);
+        });
        return  httpSecurity.build();
     }
 
@@ -65,6 +84,5 @@ public class SecurityConfig {
 
         return  new BCryptPasswordEncoder();
     }
-
 
 }

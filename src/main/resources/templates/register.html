@@ -38,6 +38,51 @@
         .btn-submit:hover { background-color: #374151; }
         .btn-reset { background-color: #9a3412; }
         .btn-reset:hover { background-color: #c2410c; }
+
+        <style>
+        /* Existing styles... */
+
+        /* OR Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ccc;
+        }
+        .divider:not(:empty)::before { margin-right: .25em; }
+        .divider:not(:empty)::after { margin-left: .25em; }
+
+        /* Google Button Styling */
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            gap: 10px;
+        }
+        .google-btn:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
     </style>
     <div class="signup-card">
 
@@ -83,6 +128,16 @@
                 <button type="reset" class="btn btn-reset">Reset</button>
             </div>
         </form>
+
+<!--        <div class="divider">OR</div>-->
+
+<!--        &lt;!&ndash; Google Signup Button &ndash;&gt;-->
+<!--        <div class="social-container">-->
+<!--            <a th:href="@{'/oauth2/authorization/google'}" class="google-btn">-->
+<!--                <img class="google-icon" src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo">-->
+<!--                <span>Sign up with Google</span>-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 </div>
 

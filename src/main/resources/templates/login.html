@@ -2,52 +2,69 @@
 <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
 <head>
     <title>Login Page</title>
-    <style>
-        /* Form & Page Layout */
-        .login-container { display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 20px; }
-        .login-card {
-            width: 100%; max-width: 400px; padding: 2.5rem; background: #ffffff;
-            border-top: 8px solid #2563eb; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .form-title { font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
-        .form-desc { color: #6b7280; margin-bottom: 2rem; }
-
-        .form-group { margin-bottom: 1.5rem; }
-        .label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; }
-        .input {
-            width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 6px;
-            font-size: 1rem; transition: 0.3s;
-        }
-        .input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-
-        .btn-login {
-            width: 100%; padding: 0.8rem; background: #2563eb; color: white;
-            border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s;
-        }
-        .btn-login:hover { background: #1d4ed8; }
-    </style>
 </head>
 <body>
 
 <div id="content" class="login-container">
     <style>
-        .login-container { display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 20px; }
-        .login-card { width: 100%; max-width: 400px; padding: 2.5rem; background: #ffffff; border-top: 8px solid #2563eb; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .form-title { font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; }
-        .form-desc { color: #6b7280; margin-bottom: 2rem; }
-        .form-group { margin-bottom: 1.5rem; }
+        .login-container { display: flex; justify-content: center; align-items: center; min-height: 75vh; padding: 20px; }
+        .login-card {
+            width: 100%; max-width: 400px; padding: 2.5rem; background: #ffffff;
+            border-top: 8px solid #2563eb; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .form-title { font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; text-align: left; }
+        .form-desc { color: #6b7280; margin-bottom: 2rem; text-align: left; }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
         .label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; }
-        .input { width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; transition: 0.3s; }
+        .input { width: 100%; padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; transition: 0.3s; box-sizing: border-box; }
         .input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-        .btn-login { width: 100%; padding: 0.8rem; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-login { width: 100%; padding: 0.8rem; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         .btn-login:hover { background: #1d4ed8; }
+
+        /* Alert Styles */
+        .alert { padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; }
+        .alert-danger { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+        .alert-success { background-color: #dcfce7; color: #166534; border: 1px solid #4ade80; }
+        .divider {
+            display: flex; align-items: center; text-align: center; margin: 20px 0; color: #9ca3af; font-size: 0.9rem;
+        }
+        .divider::before, .divider::after {
+            content: ''; flex: 1; border-bottom: 1px solid #e5e7eb;
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        .google-btn {
+            display: flex; align-items: center; justify-content: center; width: 100%;
+            padding: 0.7rem; background: #ffffff; color: #374151; border: 1px solid #d1d5db;
+            border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none;
+            transition: 0.2s; gap: 10px; font-size: 0.95rem;
+        }
+        .google-btn:hover { background: #f9fafb; border-color: #9ca3af; }
+        .google-icon { width: 20px; height: 20px; }
+
+        .alert { padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; text-align: left;}
+        .alert-danger { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+        .alert-success { background-color: #dcfce7; color: #166534; border: 1px solid #4ade80; }
     </style>
 
     <div class="login-card">
         <h2 class="form-title">Login Here</h2>
         <p class="form-desc">Welcome back! Please login to your account.</p>
 
-        <form th:action="@{'/do-login'}" method="post">
+        <!-- Display Error Message if login fails -->
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid email or password.
+        </div>
+
+        <!-- Display Logout Message if user logs out -->
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out successfully.
+        </div>
+
+        <form th:action="@{/authenticate}" method="post">
             <div class="form-group">
                 <label class="label">Email Address</label>
                 <input type="email" name="email" class="input" placeholder="name@company.com" required />
@@ -58,8 +75,22 @@
             </div>
             <button type="submit" class="btn-login">Login</button>
         </form>
+
+        <!-- OR Divider -->
+        <div class="divider">OR</div>
+
+        <!-- Google Login Button -->
+        <div class="social-login">
+            <a th:href="@{'/oauth2/authorization/google'}" class="google-btn">
+                <img class="google-icon" src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google">
+                Sign in with Google
+            </a>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #6b7280;">
+            Don't have an account? <a th:href="@{/signup}" style="color: #2563eb; text-decoration: none; font-weight: 600;">Sign up</a>
+        </p>
     </div>
-</div>
 </div>
 
 </body>
