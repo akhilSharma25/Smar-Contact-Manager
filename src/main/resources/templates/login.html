@@ -48,6 +48,21 @@
         .alert { padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; text-align: left;}
         .alert-danger { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
         .alert-success { background-color: #dcfce7; color: #166534; border: 1px solid #4ade80; }
+
+        .social-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .github-btn {
+        display: flex; align-items: center; justify-content: center; width: 100%;
+        padding: 0.7rem; background: #24292f; color: #ffffff; border: 1px solid #24292f;
+        border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none;
+        transition: 0.2s; gap: 10px; font-size: 0.95rem;
+    }
+    .github-btn:hover { background: #1a1e22; }
+    .github-icon { width: 20px; height: 20px; filter: invert(1); }
     </style>
 
     <div class="login-card">
@@ -80,11 +95,20 @@
         <div class="divider">OR</div>
 
         <!-- Google Login Button -->
-        <div class="social-login">
+        <div class="social-buttons-container">
+
+            <!-- Google Login -->
             <a th:href="@{'/oauth2/authorization/google'}" class="google-btn">
                 <img class="google-icon" src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google">
                 Sign in with Google
             </a>
+
+            <!-- GitHub Login -->
+            <a th:href="@{'/oauth2/authorization/github'}" class="github-btn">
+                <img class="github-icon" src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+                Sign in with GitHub
+            </a>
+
         </div>
 
         <p style="margin-top: 20px; font-size: 0.9rem; color: #6b7280;">

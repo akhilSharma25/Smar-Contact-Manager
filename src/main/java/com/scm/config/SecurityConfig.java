@@ -52,6 +52,7 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests((auth)->{
 //            auth.requestMatchers("/home","/signup","/login","/services").permitAll();
+
             auth.requestMatchers("/user/**").authenticated();
             auth.anyRequest().permitAll();
         });
@@ -75,6 +76,11 @@ public class SecurityConfig {
         httpSecurity.oauth2Login(oauth->
         {
             oauth.loginPage("/login").successHandler(handler);
+            oauth.failureHandler((request, response, exception) -> {
+                System.out.println("OAuth Login Failed: " + exception.getMessage());
+                exception.printStackTrace(); // Ye console mein poori error dikhayega
+                response.sendRedirect("/login?error=true");
+            });
         });
        return  httpSecurity.build();
     }
