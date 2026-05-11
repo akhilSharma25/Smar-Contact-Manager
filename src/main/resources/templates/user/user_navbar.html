@@ -1,0 +1,134 @@
+<nav th:fragment="user-navbar" class="scm-navbar">
+    <style>
+        .scm-navbar {
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 64px;
+              background-color: #ffffff;
+              border-bottom: 1px solid #e5e7eb;
+              display: flex;
+              align-items: center;
+              /* Sabse upar rakhne ke liye */
+              z-index: 1001 !important;
+              padding: 0 20px;
+              box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+          }
+
+              .nav-container {
+                  width: 100%;
+                  max-width: 1200px;
+                  margin: 0 auto;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+              }
+
+              .nav-brand {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  text-decoration: none;
+                  color: #111827;
+                  font-size: 1.5rem;
+                  font-weight: 700;
+              }
+
+              .nav-brand img {
+                  height: 32px;
+                  width: 32px;
+                  border-radius: 50%;
+              }
+
+              .nav-menu {
+                  display: flex;
+                  align-items: center;
+                  gap: 20px;
+                  list-style: none;
+                  margin: 0;
+                  padding: 0;
+              }
+
+              .nav-link {
+                  text-decoration: none;
+                  color: #4b5563;
+                  font-weight: 500;
+                  transition: color 0.2s;
+              }
+
+              .nav-link:hover {
+                  color: #2563eb;
+              }
+
+              .nav-actions {
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+              }
+
+              /* Buttons Styling */
+              .btn {
+                  padding: 8px 16px;
+                  border-radius: 8px;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  text-decoration: none;
+                  border: none;
+                  cursor: pointer;
+                  transition: opacity 0.2s;
+              }
+
+              .btn:hover { opacity: 0.9; }
+
+              .btn-theme { background: #f3f4f6; color: #374151; }
+              .btn-profile { background: #166534; color: #ffffff; }
+              .btn-logout { background: #991b1b; color: #ffffff; }
+
+              /* Dark Mode Support */
+              body.dark-mode .scm-navbar {
+                  background-color: #111827;
+                  border-bottom: 1px solid #374151;
+              }
+              body.dark-mode .nav-brand, body.dark-mode .nav-link { color: #ffffff; }
+              body.dark-mode .btn-theme { background: #374151; color: #ffffff; }
+
+              /* Sidebar Gap for Desktop */
+              @media (min-width: 641px) {
+                  .scm-navbar {
+                      padding-left: 280px; /* Sidebar ke width ke hisaab se adjust kiya */
+                  }
+              }
+
+              /* Mobile View Hide Menu */
+              @media (max-width: 768px) {
+                  .nav-menu { display: none; }
+              }
+    </style>
+
+    <div class="nav-container">
+        <a th:href="@{'/home'}" class="nav-brand">
+            <img th:src="@{'/images/telephone.png'}" alt="Logo">
+            <span>SCM2.0</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a th:href="@{'/home'}" class="nav-link">Home</a></li>
+            <li><a th:href="@{'/about'}" class="nav-link">About</a></li>
+            <li><a th:href="@{'/services'}" class="nav-link">Services</a></li>
+            <li><a th:href="@{'/contact'}" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button id="theme_change_button" class="btn btn-theme">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+
+            <a th:href="@{'/user/profile'}" class="btn btn-profile">
+                <span th:text="${loggedInUser != null ? loggedInUser.name : 'Profile'}"></span>
+            </a>
+
+            <a th:href="@{'/logout'}" class="btn btn-logout">Logout</a>
+        </div>
+    </div>
+</nav>

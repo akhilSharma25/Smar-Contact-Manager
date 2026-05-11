@@ -1,70 +1,59 @@
-<!DOCTYPE html>
-<html
-        lang="en"
-        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
->
-<head>
-    <title data-th-text="${loggedInUser.name}+' | Dashboard'">
-        Dashboard
-    </title>
-</head>
-<body>
 <div id="content">
-    <!-- Internal CSS for Dashboard Layout -->
     <style>
-        .dashboard-container {
-          display: flex;
-          min-height: 100vh;
+        /* Dashboard Wrapper */
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8fafc;
         }
 
+        /* Main Area Adjustment */
         .main-content {
-          flex-grow: 1;
-          padding: 80px 20px 20px 20px; /* Top padding for navbar space */
-          text-align: center;
-          background-color: var(--bg-color); /* Uses your global background */
-          color: var(--text-color);
+            flex-grow: 1;
+            margin-left: 260px; /* Sidebar width */
+            padding-top: 90px;  /* Navbar height + gap */
+            padding-left: 30px;
+            padding-right: 30px;
+            text-align: center;
         }
 
         .welcome-title {
-          font-size: 3rem;
-          margin-bottom: 10px;
-          color: #1e293b;
-        }
-
-        /* Dark mode support for title */
-        body.dark-mode .welcome-title {
-          color: #f8fafc;
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 10px;
         }
 
         .welcome-text {
-          font-size: 1.2rem;
-          color: #64748b;
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        /* Dark mode compatibility */
+        body.dark-mode .dashboard-wrapper { background-color: #0f172a; }
+        body.dark-mode .welcome-title { color: #f8fafc; }
+        body.dark-mode .welcome-text { color: #94a3b8; }
+
+        @media (max-width: 640px) {
+            .main-content { margin-left: 0; padding-top: 80px; }
         }
     </style>
 
-    <div class="dashboard-container">
-        <!-- Sidebar: Sirf tab dikhega jab user logged in ho -->
+    <div class="dashboard-wrapper">
         <div th:if="${loggedInUser}">
             <div data-th-replace="~{user/sidebar :: sidebar}"></div>
         </div>
 
-        <!-- Main Body Content -->
         <div class="main-content">
             <h1 class="welcome-title">Welcome to Dashboard</h1>
             <p class="welcome-text">
-                Hello <span th:text="${loggedInUser.name}" style="font-weight: bold; color: #4f46e5;">User</span>!
+                Hello <span th:text="${loggedInUser != null ? loggedInUser.name : 'User'}" style="font-weight: bold; color: #4f46e5;">User</span>!
                 Glad to see you back.
             </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consequatur, ratione!
-            </p>
+
+            <div style="background: white; padding: 40px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                <p style="color: #475569;">You can start managing your contacts from the sidebar.</p>
+            </div>
         </div>
     </div>
 </div>
-
-<script th:fragment="script">
-    console.log("This is profile page");
-</script>
-</body>
-</html>

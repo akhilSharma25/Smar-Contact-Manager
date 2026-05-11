@@ -95,7 +95,12 @@ public class OAuthenticSuccessHandler implements AuthenticationSuccessHandler {
             Object emailObj = oauth2User.getAttribute("email");
             Object loginObj = oauth2User.getAttribute("login");
             Object avatarObj = oauth2User.getAttribute("avatar_url");
-
+            if (avatarObj != null) {
+                userEntity.setProfilePic(avatarObj.toString());
+            } else {
+                // Agar kuch na mile toh ek default path set kar do
+                userEntity.setProfilePic("/images/default-profile.png");
+            }
             String email;
 
             if (emailObj != null) {

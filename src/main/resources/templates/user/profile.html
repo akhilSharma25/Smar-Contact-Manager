@@ -1,136 +1,125 @@
-<!DOCTYPE html>
-<html
-        lang="en"
-        th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
->
-<head>
-    <title data-th-text="${loggedInUser.name} + ' | Profile'">Profile Page</title>
-</head>
-<body>
 <div id="content">
     <style>
-        /* Main Layout */
-        .profile-container {
-          display: flex;
-          min-height: 100vh;
+        /* 1. Page Wrapper: Sidebar aur Navbar ka gap manage karne ke liye */
+        .profile-page-wrapper {
+            padding-top: 80px;      /* Navbar ki height ke liye top space */
+            padding-left: 260px;    /* Sidebar ki width ke liye left space */
+            min-height: 100vh;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-bottom: 50px;
         }
 
-        .profile-content {
-          flex-grow: 1;
-          padding: 100px 20px;
-          display: flex;
-          justify-content: center;
-          background-color: var(--bg-color);
-        }
-
-        /* Profile Card Styling */
+        /* 2. Profile Card Styling */
         .profile-card {
-          background: #ffffff;
-          width: 100%;
-          max-width: 500px;
-          padding: 30px;
-          border-radius: 15px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-          text-align: center;
-          height: fit-content;
+            background: #ffffff;
+            width: 100%;
+            max-width: 550px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid #e2e8f0;
         }
 
-        body.dark-mode .profile-card {
-          background: #1e293b;
-          color: #f8fafc;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        /* 3. Image Fix: Taki fatne ki jagah center mein fit rahe */
+        .profile-img-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            position: relative;
         }
 
-        .profile-img {
-          width: 150px;
-          height: 150px;
-          border-radius: 50%;
-          object-cover: cover;
-          border: 4px solid #4f46e5;
-          margin-bottom: 20px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4f46e5;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
         }
 
-        .user-name {
-          font-size: 1.8rem;
-          margin-bottom: 5px;
-          color: var(--text-color);
+        /* 4. Text & Labels */
+        .user-name { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
+        .user-email { color: #64748b; margin-bottom: 15px; font-size: 1rem; }
+
+        .info-badge {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 25px;
         }
 
-        .user-info {
-          color: #64748b;
-          margin-bottom: 10px;
-          font-size: 1rem;
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+            text-align: left;
         }
 
-        .user-about {
-          font-style: italic;
-          margin: 20px 0;
-          padding: 10px;
-          background: #f1f5f9;
-          border-radius: 8px;
-          color: #475569;
-        }
+        .detail-item label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-item p { font-size: 0.95rem; font-weight: 600; color: #334155; margin: 5px 0 0; }
 
-        body.dark-mode .user-about {
-          background: #334155;
-          color: #cbd5e1;
-        }
+        /* Dark Mode Support (Optional but safe) */
+        body.dark-mode .profile-card { background: #1e293b; border-color: #334155; }
+        body.dark-mode .user-name { color: #f8fafc; }
+        body.dark-mode .detail-item p { color: #cbd5e1; }
 
-        .verification-status {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 20px;
-          border-top: 1px solid #e2e8f0;
-          padding-top: 15px;
-          font-size: 0.85rem;
-        }
-
-        .status-tag {
-          font-weight: bold;
-          color: #4f46e5;
+        /* Mobile Responsive: Sidebar hide hone par margin hatana */
+        @media (max-width: 640px) {
+            .profile-page-wrapper {
+                padding-left: 0;
+                padding-top: 70px;
+            }
         }
     </style>
 
-    <div class="profile-container">
-        <!-- Sidebar -->
-        <div th:if="${loggedInUser}">
-            <div data-th-replace="~{user/sidebar :: sidebar}"></div>
-        </div>
+    <div class="profile-page-wrapper">
+        <div class="profile-card" th:if="${loggedInUser}">
 
-        <!-- Profile Details -->
-        <div class="profile-content">
-            <div class="profile-card">
-                <!-- Profile Photo -->
+            <div class="profile-img-container">
                 <img
-                        data-th-src="@{${loggedInUser.profilePic}}"
+                        data-th-src="${loggedInUser.profilePic}"
                         src="/images/default-profile.png"
-                        alt="Profile Photo"
-                        class="profile-img"
+                        onerror="this.onerror=null; this.src='/images/default-profile.png';"
+                        style="width: 100%; height: 100%; object-fit: cover;"
+                        alt="Profile"
                 />
+            </div>
 
-                <!-- Basic Info -->
-                <h2 class="user-name" data-th-text="${loggedInUser.name}">User Name</h2>
-                <p class="user-info" data-th-text="${loggedInUser.email}">email@example.com</p>
-                <p class="user-info" data-th-text="${loggedInUser.phoneNumber}">+91 1234567890</p>
+            <h2 class="user-name" data-th-text="${loggedInUser.name}">Akhil Sharma</h2>
+            <p class="user-email" data-th-text="${loggedInUser.email}">email@example.com</p>
 
-                <!-- About Section -->
-                <div class="user-about">
-                    <p data-th-text="${loggedInUser.about}">About the user...</p>
+            <div class="info-badge">
+                Account created using <span th:text="${loggedInUser.provider}">Google</span>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <label>Phone</label>
+                    <p data-th-text="${loggedInUser.phoneNumber != null ? loggedInUser.phoneNumber : 'N/A'}">N/A</p>
                 </div>
-
-                <!-- Verification Status -->
-                <div class="verification-status">
-                    <p>Email Verified: <span class="status-tag" data-th-text="${loggedInUser.emailVerified ? 'YES' : 'NO'}">NO</span></p>
-                    <p>Phone Verified: <span class="status-tag" data-th-text="${loggedInUser.phoneVerified ? 'YES' : 'NO'}">NO</span></p>
+                <div class="detail-item">
+                    <label>Status</label>
+                    <p data-th-text="${loggedInUser.emailVerified ? 'Verified' : 'Unverified'}">Verified</p>
                 </div>
             </div>
+
+            <div style="margin-top: 25px; text-align: left;">
+                <label style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">About</label>
+                <p style="margin-top: 8px; color: #475569; font-style: italic; line-height: 1.6;"
+                   data-th-text="${loggedInUser.about != null ? loggedInUser.about : 'Hi there! I am using Smart Contact Manager.'}">
+                    About user...
+                </p>
+            </div>
+
         </div>
     </div>
 </div>
-
-<script th:fragment="script">
-    console.log("Profile page loaded");
-</script>
-</body>
-</html>
