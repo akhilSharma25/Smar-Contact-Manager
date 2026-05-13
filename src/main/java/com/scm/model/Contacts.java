@@ -21,6 +21,7 @@ public class Contacts {
     @Column(nullable = false,unique = true)
     private String email;
     private String password;
+    private String phoneNumber;
     private String address;
     @Column(length = 1000)
     private String description;
@@ -28,8 +29,8 @@ public class Contacts {
     private String picture;
 //    private List<String>socialLinks=new ArrayList<>();
     private Boolean favorite=false;
-//    private  String websiteLink;
-//    private  String linkedLink;
+    private  String websiteLink;
+    private  String linkedLink;
 
 
     @ManyToOne

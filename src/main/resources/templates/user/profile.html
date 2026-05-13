@@ -1,10 +1,23 @@
 <div id="content">
     <style>
-        /* 1. Page Wrapper: Sidebar aur Navbar ka gap manage karne ke liye */
-        .profile-page-wrapper {
-            padding-top: 80px;      /* Navbar ki height ke liye top space */
-            padding-left: 260px;    /* Sidebar ki width ke liye left space */
+        /* 1. Page Wrapper: Full Height aur Column Layout */
+        .profile-page-container {
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
+        }
+
+        .main-layout {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        /* 2. Content Adjustment: Sidebar aur Navbar ke liye */
+        .profile-page-wrapper {
+            flex-grow: 1;
+            padding-top: 100px;     /* Navbar space + extra gap */
+            padding-left: 30px;     /* Sidebar margin fixed via flex or margin */
+            margin-left: 260px;     /* Sidebar width */
             background-color: #f8fafc;
             display: flex;
             justify-content: center;
@@ -12,7 +25,7 @@
             padding-bottom: 50px;
         }
 
-        /* 2. Profile Card Styling */
+        /* 3. Profile Card Styling */
         .profile-card {
             background: #ffffff;
             width: 100%;
@@ -24,12 +37,10 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* 3. Image Fix: Taki fatne ki jagah center mein fit rahe */
         .profile-img-container {
             width: 130px;
             height: 130px;
             margin: 0 auto 20px;
-            position: relative;
         }
 
         .profile-img-container img {
@@ -38,10 +49,8 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #4f46e5;
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
         }
 
-        /* 4. Text & Labels */
         .user-name { font-size: 1.8rem; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
         .user-email { color: #64748b; margin-bottom: 15px; font-size: 1rem; }
 
@@ -64,62 +73,72 @@
             text-align: left;
         }
 
-        .detail-item label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-item label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; }
         .detail-item p { font-size: 0.95rem; font-weight: 600; color: #334155; margin: 5px 0 0; }
 
-        /* Dark Mode Support (Optional but safe) */
-        body.dark-mode .profile-card { background: #1e293b; border-color: #334155; }
-        body.dark-mode .user-name { color: #f8fafc; }
-        body.dark-mode .detail-item p { color: #cbd5e1; }
-
-        /* Mobile Responsive: Sidebar hide hone par margin hatana */
+        /* Mobile Responsive */
         @media (max-width: 640px) {
             .profile-page-wrapper {
-                padding-left: 0;
-                padding-top: 70px;
+                margin-left: 0;
+                padding-left: 15px;
+                padding-right: 15px;
             }
         }
     </style>
 
-    <div class="profile-page-wrapper">
-        <div class="profile-card" th:if="${loggedInUser}">
+    <div class="profile-page-container">
+        <!-- 1. Navbar Include (Missing part) -->
+        <div th:if="${loggedInUser}">
+            <div data-th-replace="~{user/user_navbar :: user-navbar}"></div>
+        </div>
 
-            <div class="profile-img-container">
-                <img
-                        data-th-src="${loggedInUser.profilePic}"
-                        src="/images/default-profile.png"
-                        onerror="this.onerror=null; this.src='/images/default-profile.png';"
-                        style="width: 100%; height: 100%; object-fit: cover;"
-                        alt="Profile"
-                />
+        <div class="main-layout">
+            <!-- 2. Sidebar Include -->
+            <div th:if="${loggedInUser}">
+                <div data-th-replace="~{user/sidebar :: sidebar}"></div>
             </div>
 
-            <h2 class="user-name" data-th-text="${loggedInUser.name}">Akhil Sharma</h2>
-            <p class="user-email" data-th-text="${loggedInUser.email}">email@example.com</p>
+            <!-- 3. Profile Content -->
+            <div class="profile-page-wrapper">
+                <div class="profile-card" th:if="${loggedInUser}">
 
-            <div class="info-badge">
-                Account created using <span th:text="${loggedInUser.provider}">Google</span>
-            </div>
+                    <div class="profile-img-container">
+                        <img
+                                data-th-src="${loggedInUser.profilePic}"
+                                src="/images/default-profile.png"
+                                onerror="this.onerror=null; this.src='/images/default-profile.png';"
+                                alt="Profile"
+                        />
+                    </div>
 
-            <div class="details-grid">
-                <div class="detail-item">
-                    <label>Phone</label>
-                    <p data-th-text="${loggedInUser.phoneNumber != null ? loggedInUser.phoneNumber : 'N/A'}">N/A</p>
+                    <h2 class="user-name" data-th-text="${loggedInUser.name}">User Name</h2>
+                    <p class="user-email" data-th-text="${loggedInUser.email}">email@example.com</p>
+
+                    <div class="info-badge">
+                        Account created using <span th:text="${loggedInUser.provider}">Provider</span>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Phone</label>
+                            <p data-th-text="${loggedInUser.phoneNumber != null ? loggedInUser.phoneNumber : 'N/A'}">N/A</p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <p data-th-text="${loggedInUser.emailVerified ? 'Verified' : 'Unverified'}">Verified</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 25px; text-align: left;">
+                        <label style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">About</label>
+                        <p style="margin-top: 8px; color: #475569; font-style: italic; line-height: 1.6;"
+                           data-th-text="${loggedInUser.about != null ? loggedInUser.about : 'Hi there! I am using Smart Contact Manager.'}">
+                            About user...
+                        </p>
+                    </div>
+
                 </div>
-                <div class="detail-item">
-                    <label>Status</label>
-                    <p data-th-text="${loggedInUser.emailVerified ? 'Verified' : 'Unverified'}">Verified</p>
-                </div>
             </div>
-
-            <div style="margin-top: 25px; text-align: left;">
-                <label style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">About</label>
-                <p style="margin-top: 8px; color: #475569; font-style: italic; line-height: 1.6;"
-                   data-th-text="${loggedInUser.about != null ? loggedInUser.about : 'Hi there! I am using Smart Contact Manager.'}">
-                    About user...
-                </p>
-            </div>
-
         </div>
     </div>
 </div>

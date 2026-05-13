@@ -37,22 +37,41 @@
         @media (max-width: 640px) {
             .main-content { margin-left: 0; padding-top: 80px; }
         }
+        .dashboard-wrapper {
+            display: flex;
+            flex-direction: column; /* Taki Navbar upar rahe aur baaki content niche */
+            min-height: 100vh;
+        }
+
+        .main-layout {
+            display: flex; /* Sidebar aur Main Content ke liye */
+            flex-grow: 1;
+        }
     </style>
 
     <div class="dashboard-wrapper">
+        <!-- 1. NAVBAR YAHAN AAYEGI (Ye missing thi) -->
         <div th:if="${loggedInUser}">
-            <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+            <div data-th-replace="~{user/user_navbar :: user-navbar}"></div>
         </div>
 
-        <div class="main-content">
-            <h1 class="welcome-title">Welcome to Dashboard</h1>
-            <p class="welcome-text">
-                Hello <span th:text="${loggedInUser != null ? loggedInUser.name : 'User'}" style="font-weight: bold; color: #4f46e5;">User</span>!
-                Glad to see you back.
-            </p>
+        <div class="main-layout">
+            <!-- 2. SIDEBAR -->
+            <div th:if="${loggedInUser}">
+                <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+            </div>
 
-            <div style="background: white; padding: 40px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-                <p style="color: #475569;">You can start managing your contacts from the sidebar.</p>
+            <!-- 3. MAIN CONTENT -->
+            <div class="main-content">
+                <h1 class="welcome-title">Welcome to Dashboard</h1>
+                <p class="welcome-text">
+                    Hello <span th:text="${loggedInUser != null ? loggedInUser.name : 'User'}" style="font-weight: bold; color: #4f46e5;">User</span>!
+                    Glad to see you back.
+                </p>
+
+                <div style="background: white; padding: 40px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <p style="color: #475569;">You can start managing your contacts from the sidebar.</p>
+                </div>
             </div>
         </div>
     </div>
